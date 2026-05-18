@@ -2,12 +2,147 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+
+    <!-- Primary Meta -->
+    <title>Morning Brief — Your Personal AI Morning Dashboard</title>
+    <meta name="description" content="Start every day with purpose. Morning Brief gives you live weather, AI-curated news, personalized quotes, markets, and your daily intentions — all in one beautiful dashboard." />
+    <meta name="author" content="Morning Brief" />
+    <meta name="keywords" content="morning routine, daily brief, AI dashboard, weather, news, productivity, habit tracker" />
+    <link rel="canonical" href="https://morning-brief.page.gd" />
+
+    <!-- Open Graph (WhatsApp, Facebook, LinkedIn previews) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://morning-brief.page.gd" />
+    <meta property="og:title" content="Morning Brief — Your Personal AI Morning Dashboard" />
+    <meta property="og:description" content="Start every day with purpose. Live weather, AI news, personalized quotes, markets and your daily intentions — beautifully designed." />
+    <meta property="og:image" content="https://morning-brief.page.gd/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="Morning Brief" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://morning-brief.page.gd" />
+    <meta name="twitter:title" content="Morning Brief — Your Personal AI Morning Dashboard" />
+    <meta name="twitter:description" content="Start every day with purpose. Live weather, AI news, personalized quotes, markets and your daily intentions." />
+    <meta name="twitter:image" content="https://morning-brief.page.gd/og-image.png" />
+
+    <!-- PWA / Mobile -->
+    <meta name="theme-color" content="#090c18" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Morning Brief" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="application-name" content="Morning Brief" />
+
+    <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>morning-brief</title>
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <!-- Fonts preload for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Structured Data (Google rich results) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Morning Brief",
+      "url": "https://morning-brief.page.gd",
+      "description": "Your personal AI-powered morning dashboard. Live weather, news headlines, personalized quotes, market data, and daily intentions.",
+      "applicationCategory": "LifestyleApplication",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+
+    <style>
+      /* Prevent flash of unstyled content */
+      html, body {
+        margin: 0;
+        padding: 0;
+        background: #090c18;
+        color: #f0ede6;
+        font-family: 'Inter', system-ui, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        overflow-x: hidden;
+      }
+
+      /* Loading screen shown before React mounts */
+      #splash {
+        position: fixed;
+        inset: 0;
+        background: #090c18;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+        transition: opacity 0.5s ease;
+      }
+      #splash.hidden {
+        opacity: 0;
+        pointer-events: none;
+      }
+      #splash-icon {
+        font-size: 52px;
+        margin-bottom: 20px;
+        animation: splashPulse 1.8s ease-in-out infinite;
+      }
+      #splash-title {
+        font-family: 'Playfair Display', Georgia, serif;
+        font-size: 26px;
+        color: #f0ede6;
+        margin-bottom: 8px;
+        letter-spacing: 0.02em;
+      }
+      #splash-sub {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 12px;
+        color: rgba(255,255,255,0.35);
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+      }
+      @keyframes splashPulse {
+        0%, 100% { transform: scale(1); opacity: 0.8; }
+        50% { transform: scale(1.08); opacity: 1; }
+      }
+    </style>
   </head>
   <body>
+    <!-- Splash screen shown instantly before JS loads -->
+    <div id="splash">
+      <div id="splash-icon">🌅</div>
+      <div id="splash-title">Morning Brief</div>
+      <div id="splash-sub">Loading your day…</div>
+    </div>
+
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+
+    <script>
+      // Hide splash once React has mounted
+      window.addEventListener('load', () => {
+        setTimeout(() => {
+          const splash = document.getElementById('splash');
+          if (splash) {
+            splash.classList.add('hidden');
+            setTimeout(() => splash.remove(), 600);
+          }
+        }, 900);
+      });
+    </script>
   </body>
 </html>
